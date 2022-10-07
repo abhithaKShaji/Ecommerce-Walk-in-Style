@@ -1,0 +1,97 @@
+<section id="pdt-details" class="section-p1">
+    <div class="single-pdt-img" id="zoom">
+        <img src="/product-images/{{product._id}}1.jpg" id="mainImg" width="100%" alt="">
+        <div class="smImg-grp">
+             <div class="smImg-col">
+                <img src="/product-images/{{product._id}}1.jpg" class="sm-img" alt="">
+             </div>
+              <div class="smImg-col">
+                <img src="/product-images/{{product._id}}2.jpg" class="sm-img" alt="">
+              </div>
+              <div class="smImg-col">
+                <img src="/product-images/{{product._id}}3.jpg" class="sm-img" alt="">
+              </div>
+              <div class="smImg-col">
+                <img src="/product-images/{{product._id}}4.jpg" class="sm-img" alt="">
+              </div>
+        </div>
+    </div>
+    <div class="single-pdt-details">
+    <h6>{{product.Brand}}</h6>
+    <h4>{{product.Name}}</h4>
+    <h2>₹ {{product.Price}}</h2>
+    <select id="size" name="size">
+      <option>size</option>
+      <option>4</option>
+      <option>5</option>
+      <option>6</option>
+      <option>7</option>
+      <option>8</option>
+    </select>
+    <h4>Product Description</h4>
+    <h5>{{product.Details}}</h5>
+    <button class="cart" onclick="addToCart('{{product._id}}')"><i class="fa-solid fa-cart-shopping"></i> ADD TO CART</button>
+    <button class="buy"><i class="fa-solid fa-bolt-lightning"></i> BUY NOW</button><br><br>
+    <button class="wish" id="wish" onclick="addToWishlist('{{product._id}}')">ADD TO WISHLIST +</button>
+  </div>
+</section>
+
+<section id="featured" class="section-p1">
+    <div class="container text-center py-5">
+        <h3>Similar Products</h3>
+        <hr>
+        <p>Here you can check out our new products with fair price on WIS.</p>
+    </div>
+    <div class="pro-container ">
+        {{#each similarProducts}}
+      <div class="pro">
+          <img src="/product-images/{{this._id}}1.jpg" alt="" onclick="window.location.href='/view-product/{{this._id}}'">
+          <div class="des">
+              <span>{{this.Brand}}</span>
+              <h5>{{this.Name}}</h5>
+              <div class="star">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fa-solid fa-star-half-stroke"></i>
+              </div>
+              <h4>₹ {{this.Price}}</h4>
+          </div>
+          <a href=""><i class="far fa-heart wishlist"></i></a>
+          <!-- <a href="#"><i class="fa-solid fa-cart-arrow-down cart"></i></a> -->
+      </div>
+      {{/each}}
+    </div>
+</section>
+
+
+<script>
+  var mainImg = document.getElementById('mainImg');
+    var smallImg = document.getElementsByClassName('sm-img');
+   
+    smallImg[0].onclick=() => {
+        mainImg.src = smallImg[0].src
+    }
+    smallImg[1].onclick=() => {
+        mainImg.src = smallImg[1].src
+    }
+    smallImg[2].onclick=() => {
+        mainImg.src = smallImg[2].src
+    }
+    smallImg[3].onclick=() => {
+        mainImg.src = smallImg[3].src
+    }
+
+</script>
+
+<script>
+  const btn = document.getElementById('wish')
+
+ btn.addEventListener('click', function onClick() {
+  btn.style.backgroundColor = '#c40a2c';
+  btn.style.color = 'white';
+});
+</script>
+
+

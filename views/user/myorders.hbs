@@ -1,0 +1,74 @@
+<section class="container" id="profile">
+    <div class="left">
+     <div class="title" style="margin-top: 120px;">
+        <h5>Account</h5>
+        {{#if user}}
+        <p>{{user.Name}}</p>
+        {{/if}}
+    </div>
+    <div class="row">
+    <div class="sidebar mt-5 col-md-3 col-3">
+        <div class="sidebar-menu">
+            <li class="item">
+                <a href="/profile" class="menu-btn">
+                    <i class="fas fa-user-circle"></i><span>My Profile</span>
+                </a>
+            </li>
+            <li class="item">
+                <a href="/myorders" class="menu-btn">
+                    <i class="fa-solid fa-boxes"></i><span>My Orders</span>
+                </a>
+            </li>
+            <li class="item">
+                <a href="/wishlist" class="menu-btn">
+                    <i class="fa-solid fa-heart"></i><span>My Wishlist</span>
+                </a>
+            </li>
+            <li class="item">
+                <a href="/logout" class="menu-btn">
+                    <i class="fas fa-power-off"></i><span>Logout</span>
+                </a>
+            </li>
+        </div>
+    </div>
+    </div>
+    </div>
+    <div class="col-lg-8 col-md-6 text-center">
+        <div class="orders">
+            <h4 class="order-title">My Orders</h4>
+            <table class="table mt-5">
+              <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Delivery Details</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each orders}}
+                <tr>
+                    <td><div class="wishlist-details">
+                        <img style="width: 85px; height: 95px;" src="/product-images/{{this.product._id}}1.jpg" alt="">
+                        <div>
+                            <h6>{{this.product.Brand}}</h6>
+                            <p>{{this.product.Name}}</p>
+                            <small>Qty: {{this.quantity}}</small>
+                        </div>
+                        </div>
+                    </td>
+                    <td>
+                        <p>{{deliveryDetails.name}} <br> {{deliveryDetails.street}} {{deliveryDetails.city}} <br> {{deliveryDetails.state}}-{{deliveryDetails.pincode}}
+                    <br>Mobile: {{deliveryDetails.number}}</p>
+                    </td>
+                    <td>{{this.date}}</td>
+                    <td>₹ {{this.totalAmount}}</td>
+                    <td>{{this.status}}</td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+        </div>
+    </div>
+</section>

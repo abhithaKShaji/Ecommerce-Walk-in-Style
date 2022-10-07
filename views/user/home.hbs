@@ -1,0 +1,150 @@
+ <section class="home">
+    <div class="container">
+       <h5>NEW ARRIVALS</h5>
+       <h1><span>Best Price</span> This Year</h1>
+       <p>We Offers you a very comfortable time <br> on walking and exercises.</p>
+       <a href="/women"><button>Explore Now</button></a>
+    </div>
+</section>
+
+<section id="brand-logo" class="container">
+    <div class="row m-0 py-5">
+        <img class="img-fluid col-lg-2 col-md-4 col-6" src="/images/logo1.png" alt="">
+        <img class="img-fluid col-lg-2 col-md-4 col-6" src="/images/logo2.png" alt="">
+        <img class="img-fluid col-lg-2 col-md-4 col-6" src="/images/logo3.png" alt="">
+        <img class="img-fluid col-lg-2 col-md-4 col-6" src="/images/logo4.jpg" alt="">
+        <img class="img-fluid col-lg-2 col-md-4 col-6" src="/images/logo5.jpg" alt="">
+        <img class="img-fluid col-lg-2 col-md-4 col-6" src="/images/logo6.jpg" alt="">
+    </div>
+</section>
+
+<section id="new" class="w-100">
+    <div class="row m-0 p-0">
+        <div class="men col-lg-4 col-md-12 col-12 p-0">
+            <img class="img-fluid" src="/images/admen.jpg" alt="">
+            <div class="details">
+                <h2>Extreme Rare Sneakers</h2>
+                <a href="/men"><button class="text-uppercase">Shop now</button></a>
+            </div>
+        </div>
+        <div class="men col-lg-4 col-md-12 col-12 p-0">
+            <img class="img-fluid" src="/images/adwomen.jpg" alt="">
+            <div class="details">
+                <h2>Awesome Women Heels</h2>
+                <a href="/women"><button class="text-uppercase">Shop now</button></a>
+            </div>
+        </div>
+        <div class="men col-lg-4 col-md-12 col-12 p-0">
+            <img class="img-fluid" src="/images/adkids.jpg" alt="">
+            <div class="details">
+                <h2>Kids Footwears Upto 50% off</h2>
+                <a href="/kids"><button class="text-uppercase">Shop now</button></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="featured" class="section-p1">
+    <div class="container text-center mt-5 py-5">
+        <h3>Our Featured Products</h3>
+        <hr>
+        <p>Here you can check out our new products with fair price on WIS.</p>
+    </div>
+    <div class="pro-container">
+        {{#each products}}
+      <div class="pro">
+          <img src="product-images/{{this._id}}1.jpg" alt="" onclick=" window.location.href='/view-product/{{this._id}}'">
+          <div class="des">
+              <span>{{this.Brand}}</span>
+              <h5>{{this.Name}}</h5>
+              <div class="star">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fa-solid fa-star-half-stroke"></i>
+              </div>
+              <h4>₹ {{this.Price}}</h4>
+          </div>
+          <a id="wish" onclick="addToWishlist()" href=""><i class="far fa-heart wishlist"></i></a>
+         <!-- <a href="#"><i class="fa-solid fa-cart-arrow-down cart"></i></a> -->
+      </div>
+      {{/each}}
+    </div>
+</section>
+
+<section id="banner" class="my-5 py-5">
+   <div class="container">
+       <h4>MID SEASON'S SALE</h4>
+       <h1>Sneakers special offer <br> UP TO 50% OFF</h1>
+       <button class="text-uppercase">Shop Now</button>
+   </div>
+</section>
+
+<section id="featured" class="section-p1">
+    <div class="container text-center py-5">
+        <h3>Sneakers</h3>
+        <hr>
+        <p>Here you can check out our new products with fair price on WIS.</p>
+    </div>
+    <div class="pro-container ">
+        {{#each specificProducts}}
+      <div class="pro">
+          <img src="product-images/{{this._id}}1.jpg" alt="" onclick="window.location.href='/view-product/{{this._id}}'">
+          <div class="des">
+              <span>{{this.Brand}}</span>
+              <h5>{{this.Name}}</h5>
+              <div class="star">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fa-solid fa-star-half-stroke"></i>
+              </div>
+              <h4>₹ {{this.Price}}</h4>
+          </div>
+          <a href=""><i class="far fa-heart wishlist"></i></a>
+          <!-- <a href="#"><i class="fa-solid fa-cart-arrow-down cart"></i></a> -->
+      </div>
+      {{/each}}
+    </div>
+</section>
+
+<section id="sm-banner" class="section-p1">
+    <div class="banner-box">
+        <h4>Crazy Deals</h4>
+        <h2>buy 1 get 1 free</h2>
+        <span>The best classic heels is on sale at WIS.</span>
+        <button class="white">Explore More</button>
+    </div>
+    <div class="banner-box banner-box2">
+        <h4>Amazing Shoes</h4>
+        <h2>buy 1 get 1 free</h2>
+        <span>The best shoe collection is on sale at WIS.</span>
+        <button class="white">Collection</button>
+    </div>
+</section>
+
+<section id="banner-3">
+    <div class="banner-box">
+        <h2>SEASONAL SALE</h2>
+        <h3>Comfortable heels and wedges</h3>
+    </div>
+    <div class="banner-box banner-box2">
+        <h2>NEW KIDS FOOTWEAR COLLECTION</h2>
+        <h3>Collection upto-20% off</h3>
+    </div>
+    <div class="banner-box banner-box3">
+        <h2>SEASONAL SALE</h2>
+        <h3>Trendy and Classic collections</h3>
+    </div>
+</section>
+
+<script>
+    function addToWishlist(){
+        document.getElementById("wish").style.backgroundColor = 'red'
+    }
+</script> 
+
+
+

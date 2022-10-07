@@ -1,0 +1,67 @@
+<section style="margin: 150px 250px;">
+   <div class="container mt-5 text-center">
+    <ul class="breadcrumb">
+     <li><a href="#">Manage Orders</a></li>
+     <li>All Orders</li>
+    </ul>
+       <table class="table" id="productsTable" style="margin: 3rem; padding: 5rem;">
+  <thead>
+    <tr>
+      <th scope="">User</th>
+      <th scope="col">Address</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Payment Method</th>
+      <th scope="col">Date</th>
+      <th scope="col">Status</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each allOrders}}
+    <tr>
+      <td class="align-middle">{{this._id}}</td>
+      <td class="align-middle">{{deliveryDetails.name}} <br>{{deliveryDetails.street}},{{deliveryDetails.city}} <br> 
+      {{deliveryDetails.state}}-{{deliveryDetails.pincode}}</td>
+      <td class="align-middle">{{this.totalAmount}}</td>
+      <td class="align-middle">{{this.paymentMethod}}</td>
+      <td class="align-middle">{{this.date}}</td>
+      <td class="align-middle">
+        <div class="dropdown">
+  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="status" data-bs-toggle="dropdown"
+   aria-expanded="false" onclick="changeStatus('{{this.status}}')">
+    {{this.status}}
+  </a>
+
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <li><a class="dropdown-item" href="/admin/placed/{{this._id}}" id="{{this._id}}"placed>Placed</a></li>
+    <li><a class="dropdown-item" href="/admin/shipped/{{this._id}}" id="{{this._id}}"shipped>Shipped</a></li>
+    <li><a class="dropdown-item" href="/admin/delivered/{{this._id}}" id="{{this._id}}"delivered>Delivered</a></li>
+    <li><a class="dropdown-item" href="/admin/cancelled/{{this._id}}" id="{{this._id}}"cancelled>Cancelled</a></li>
+  </ul>
+</div>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table> 
+   </div>
+</section>
+
+<script>
+    function changeStatus(orderStatus){
+        let status = document.getElementById('status').innerHTML
+        if(status==='Placed'){
+            document.getElementById(orderId + 'placed').hidden = false;
+        }else if(status==='Shipped'){
+            document.getElementById(orderId + 'placed').hidden = false;
+        }else if(status==='Delivered'){
+            document.getElementById(orderId + 'placed').hidden = false;
+            document.getElementById(orderId + 'shipped').hidden = false;
+            document.getElementById(orderId + 'cancelled').hidden = false;
+        }else if(status==='Cancelled'){
+            document.getElementById(orderId + 'placed').style.display = "none";
+            document.getElementById(orderId + 'shipped').style.display = "none";
+            document.getElementById(orderId + 'delivered').style.display = "none";
+        }
+    }
+</script>

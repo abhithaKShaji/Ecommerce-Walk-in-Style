@@ -1,0 +1,59 @@
+<section id="wishlist">
+    <div class="small-container wishlist-page">
+        <div class="title">
+            <h5 style="font-weight: 600;">My Wishlist <span id="wishlist-count">({{wishlistCount}})</span></h5>
+        </div>
+        <table class="table mt-5"> 
+            <tbody>
+                {{#each products}}
+                <tr>
+                    <td>
+                        <div class="wishlist-details">
+                        <img style="width: 85px; height: 95px;" onclick="window.location.href='/view-product/{{this.product._id}}'" src="/product-images/{{this.product._id}}1.jpg" alt="">
+                        <div>
+                            <h6>{{this.product.Brand}}</h6>
+                            <p>{{this.product.Name}}</p>
+                            <small>₹ {{this.product.Price}}</small>
+                            <a href="#" onclick="addToCartfromWishlist('{{product._id}}')"><i class="fa-solid fa-cart-arrow-down cart"></i></a>
+                        </div>
+                        </div>
+                    </td>
+                    <td><button class="removewishlist" onclick="productRemove('{{this._id}}','{{this.product._id}}')"><i class="fa-solid fa-trash-can"></i></button></td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</section>
+
+
+<script>
+   function productRemove(wishlistId,proId){
+       Swal.fire({
+        title: 'Are you sure?',
+        text: "You want to remove this product?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result)=>{
+        if(result.isConfirmed){
+               $.ajax({
+           url:'/remove-wishlist-item',
+           data:{
+               wishlist:wishlistId,
+               product:proId
+           },
+           method:'post',
+           success:(response)=>{
+               if(response.removeItem){
+                       location.reload()
+               }
+           }
+       })
+        }
+      })
+    
+    }
+</script>

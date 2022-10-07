@@ -1,0 +1,89 @@
+<section id="add-pdt">
+  <div class="container mt-4">
+    <div class="row justify-content-center mt-5">
+      <div class="title col-md-6">
+        <h2 class="text-center">Add Product</h2>
+        <form action="/admin/add-product" method="post" enctype="multipart/form-data">
+
+          <input type="text" name="Name" placeholder="Name"><br><br>
+          <input type="text" name="Price" placeholder="Price"><br><br>
+          <input type="text" name="Details" placeholder="Details"><br><br>
+          <input type="text" name="Brand" placeholder="Brand">
+        
+        <div class="options">
+          <div class="category">
+            <select name="mainCategory" id="" onchange="makeSubcategory(event)">
+              <option value="">Category</option>
+              {{#each category}}
+              <option value="{{this.category}}">{{this.category}}</option>
+              {{/each}}
+            </select>
+          </div>
+
+          <div class="sub">
+            <select name="subCategory" id="categorySelect">
+              <option value="">Sub Category</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="images">
+            <img src="" alt="" id="imgView1" style="width: 100px; height: auto;" class="pt-3">
+            <input type="file" name="image1" class="form-control" onchange="viewImage1(event)">
+
+            <img src="" alt="" id="imgView2" style="width: 100px; height: auto;" class="pt-3">
+            <input type="file" name="image2" class="form-control" onchange="viewImage2(event)">
+
+            <img src="" alt="" id="imgView3" style="width: 100px; height: auto;" class="pt-3">
+            <input type="file" name="image3" class="form-control" onchange="viewImage3(event)">
+
+            <img src="" alt="" id="imgView4" style="width: 100px; height: auto;" class="pt-3">
+            <input type="file" name="image4" class="form-control" onchange="viewImage4(event)">
+        </div>
+
+        <div class="submit">
+          <button type="submit">Add</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+   const subcategories = {{json category}}
+
+     function viewImage1(event){
+        document.getElementById('imgView1').src=URL.createObjectURL(event.target.files[0])
+    }
+     function viewImage2(event){
+        document.getElementById('imgView2').src=URL.createObjectURL(event.target.files[0])
+    }
+     function viewImage3(event){
+        document.getElementById('imgView3').src=URL.createObjectURL(event.target.files[0])
+    }
+     function viewImage4(event){
+        document.getElementById('imgView4').src=URL.createObjectURL(event.target.files[0])
+    }
+
+    function makeSubcategory(event) {
+      const selectContainer = document.getElementById('categorySelect');
+      selectContainer.innerHTML = '<option value="">Sub Category</option>';
+      const [selectedCategory] = subcategories.filter((category) => category.category === event.target.value);
+      
+      selectedCategory.subCategory.forEach((sc)=>{
+        const option = document.createElement('option');
+        option.value = sc;
+        option.innerText = sc;
+        selectContainer.appendChild(option);
+      });
+    }
+
+  
+
+
+
+</script>
+
+
+

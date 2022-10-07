@@ -1,0 +1,37 @@
+<section style="margin: 150px 250px;">
+    <div class="container text-center">
+      <h3>All Categories</h3>
+      <div class="row">
+        <a href="/admin/add-category" class="btn btn-success ml-auto">Add New</a>
+      </div>
+      <table class="table mt-4">
+  <thead>
+    <tr>
+      <th scope="col">Category</th>
+      <th scope="col">Sub Category</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each categories}}
+    <tr>
+      <td class="align-middle">{{this.category}}</td>
+      <td class="align-middle">
+        <ul>
+          {{#each subCategory}}
+          <li>
+            {{this}}
+          </li>
+          {{/each}}
+        </ul>
+      </td>
+      <td class="align-middle">
+        <span><a href=""><i class="fa-solid fa-pen-to-square" style="color: blue;"></i></a></span>
+          <span><a href=""><i class="fa-solid fa-trash" style="color: red;"></i></a></span>
+      </td>
+    </tr>
+   {{/each}}
+  </tbody>
+</table>
+    </div>
+</section>

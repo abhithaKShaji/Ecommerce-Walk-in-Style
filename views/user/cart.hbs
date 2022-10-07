@@ -1,0 +1,122 @@
+<section id="cart">
+    <div class="small-container cart-page">
+        <table class="table mt-5">
+            <thead>
+                <tr>
+                    <th scope="col">Item</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each products}}
+                <tr>
+
+                    <td>
+                        <div class="cart-details">
+                            <img style="width: 85px; height: 95px;"
+                                onclick="window.location.href='/view-product/{{this.product._id}}'"
+                                src="/product-images/{{this.product._id}}1.jpg" alt="">
+                            <div>
+                                <h6>{{this.product.Brand}}</h6>
+                                <p>{{this.product.Name}}</p>
+                                <small>₹ {{this.product.Price}}</small>
+                                <button class="removecart"
+                                    onclick="productRemove('{{this._id}}','{{this.product._id}}')"><i
+                                        class="fa-solid fa-trash-can"></i></button>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <button class="cart-item-count mr-3 qty"
+                            onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user._id}}',-1)"> -
+                        </button>
+                        <span id="{{this.product._id}}">{{this.quantity}}</span>
+                        <button class="cart-item-count ml-3 qty"
+                            onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user._id}}',1)"> +
+                        </button>
+                    </td>
+
+                    <td>₹ {{this.product.Price}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+        <div class="total-price">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Total</td>
+                        <td id="total">₹ {{totalValue}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- <h5 style="padding-left: 64rem;" class="mt-5">TOTAL:Rs.<span id="total"></span></h5><br> -->
+        </div>
+        <br>
+        <div>
+            <a href="/checkout" class="btn btn-success" style="margin-left: 45rem; width: 18rem;"> <b>PLACE ORDER</b>
+            </a>
+        </div>
+    </div>
+</section>
+
+<script>
+    function changeQuantity(cartId, proId, userId, count) {
+        let quantity = parseInt(document.getElementById(proId).innerHTML)
+        count = parseInt(count)
+
+        $.ajax({
+            url: '/change-product-quantity',
+            data: {
+                user: userId,
+                cart: cartId,
+                product: proId,
+                count: count,
+                quantity: quantity
+            },
+            method: 'post',
+            success: (response) => {
+                if (response.removeProduct) {
+                    alert("Product removed from cart")
+                    location.reload()
+                } else {
+                    document.getElementById(proId).innerHTML = quantity + count
+                    document.getElementById('total').innerHTML = response.total
+                }
+            }
+        })
+
+    }
+
+    function productRemove(cartId, proId) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You want to remove this product?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/remove-cart-item',
+                    data: {
+                        cart: cartId,
+                        product: proId
+                    },
+                    method: 'post',
+                    success: (response) => {
+                        if (response.removeItem) {
+                            location.reload()
+                        }
+                    }
+                })
+            }
+        })
+
+    }
+
+</script>

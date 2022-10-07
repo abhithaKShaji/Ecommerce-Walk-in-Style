@@ -1,0 +1,40 @@
+<section style="margin: 150px 250px;">
+   <div class="container mt-5 text-center">
+    <ul class="breadcrumb">
+     <li><a href="#">Manage Users</a></li>
+     <li>Blocked Users</li>
+    </ul>
+       <table class="table" id="productsTable" style="margin: 3rem; padding: 5rem;">
+  <thead>
+    <tr>
+      <th scope="">No</th>
+      <th scope="col">Username</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Status</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each blockedUsers}}
+    <tr>
+      <td class="align-middle">{{@index}}</td>
+      <td class="align-middle">{{this.Name}}</td>
+      <td class="align-middle">{{this.Email}}</td>
+      <td class="align-middle">{{this.Number}}</td>
+      <td class="align-middle">
+        {{#if this.status}}
+        Active
+        {{else}}
+        Blocked
+        {{/if}}
+      </td>
+      <td class="align-middle">
+         <a href="/admin/unblock-user/{{this._id}}" class="btn btn-danger">Unblock</a>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table> 
+   </div>
+</section>

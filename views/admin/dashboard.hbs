@@ -1,0 +1,110 @@
+<section id="dashboard" style="margin: 150px 250px;">
+    <div class="container">
+        <div class="box">
+            <div class="counts">
+                <div class="count-box">
+                    <i class="fa-solid fa-users"></i>
+                    <div>
+                        <h3>{{userCount}}</h3>
+                        <span>Total Users</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="counts">
+                <div class="count-box">
+                    <i class="fa-solid fa-truck"></i>
+                    <div>
+                        <h3>{{orderCount}}</h3>
+                        <span>Total Orders</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="counts">
+                <div class="count-box">
+                    <i class="fa-solid fa-boxes"></i>
+                    <div>
+                        <h3>{{productCount}}</h3>
+                        <span>Total Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="counts">
+                <div class="count-box">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <div>
+                        <h3>{{totalRevenue}}</h3>
+                        <span>Total Revenue</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="charts">
+            <div class="chart" id="doughnut">
+                <h2>Payment Chart</h2>
+                <canvas id="chart1"></canvas>
+                <script>
+                    const ctx1 = document.getElementById('chart1').getContext('2d');
+                    const chart1 = new Chart(ctx1, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['COD', 'Razorpay'],
+                            datasets: [{
+                                data: [{{ paymentMethods }}],
+                            backgroundColor: [
+                                'rgb(255, 255, 51)',
+                                'rgb(153, 51, 255)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                        options: {
+                        responsive: true,
+                        title: {
+                            display: true,
+                            text: "Payment Methods"
+                        }
+
+                    }
+                    });
+                </script>
+
+            </div>
+            <div class="chart">
+                <h2>Order Status</h2>
+                <canvas id="chart2"></canvas>
+                <script>
+const ctx2 = document.getElementById('chart2').getContext('2d');
+const chart2 = new Chart(ctx2, {
+    type: 'pie',
+    data: {
+        labels: [{{#each orderStatus}}'{{this.status}}',{{/each}}],
+        datasets: [{
+            label: '# of Votes',
+            data: [{{#each orderStatus}}'{{this.total}}',{{/each}}],
+            backgroundColor: [
+                '#52d726',
+                '#ffec00',
+                '#ff7300',
+                '#007ed6',
+                '#7cdddd'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+
+            </div>
+        </div>
+    </div>
+</section>

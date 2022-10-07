@@ -1,0 +1,200 @@
+<section class="checkout spad" style="margin-top: 150px;">
+    <div class="container">
+        <div class="checkout__form">
+            <div class="row">
+                <div class="col-lg-8 col-md-6">
+                    <div id="click-div" class="add text-center" onclick="myFunction()">+ ADD ADDRESS</div>
+                    <div id="section-A" class="form tab-pane d-none mt-4">
+
+                        <form action="add-checkout-address" method="post">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <input type="text" name="name"   class="form-control" id="name" placeholder="Full Name">
+                                        <p class="error-msg" id="errormsg4"></p>
+                                </div>
+                        
+                                <div class="col-md-6">
+                                    <input type="text" name="number"  class="form-control" id="number"
+                                        placeholder="Mobile Number">
+                                        <p class="error-msg" id="errormsg2"></p>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control"  id="add1" name="street"
+                                    placeholder="Street Address">
+                                    <p id="errormsg8" class="error-msg"></p>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control"  id="add2" name="town"
+                                    placeholder="Apartment, studio, or floor">
+                                     <p class="error-msg" id="errormsg9"></p>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6 col-6">
+                                    <input type="text" class="form-control"  name="pincode" placeholder="Pincode" id="zip">
+                                    <p class="error-msg" id="errormsg6"></p>
+                                </div>
+                                
+                            </div>
+
+                            
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <input type="text" class="form-control"  name="city" id="city" placeholder="City">
+                                    <p class="error-msg" id="errormsg5"></p>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <input type="text" list="state" id="state"  name="state" class="form-control"
+                                        placeholder="Pick a State" />
+                                        <p class="error-msg" id="errormsg3"></p>
+                                </div>
+
+                            </div>
+                            <button type="submit"  class="btn btn-success btn-md">Submit</button>
+                        </form>
+                    </div>
+
+                    <div class="mt-4">
+                        <form id="checkout-form">
+                            {{#each allAddress}}
+                            <div class="default d-flex mt-4 pl-2">
+                               <div class="mt-3">
+                                    <input type="radio" name="address" value="{{this.address.id}}">
+                                </div> 
+                                <div class="m-3">
+                                    <b>{{this.address.name}}</b><br>
+                                    <div class="mt-3">
+                                        <span>{{this.address.street}} {{this.address.town}}</span><br>
+                                        <span>{{this.address.city}}</span><br>
+                                        <span>{{this.address.state}}-<span>{{this.address.pincode}}</span></span>
+                                    </div>
+                                    <h5 class="font-weight-bold">Mobile: +91-{{this.address.number}}</h5>
+                                    <div class="links">
+                                <a href=""  class="edit"><i class="fas fa-pen"></i>Edit</a>
+                                <a href="" onclick="addressRemove('{{../user._id}}','{{this.address.id}}')" class="remove"><i class="fas fa-trash"></i>Remove</a>
+                            </div>
+                                </div>
+                            </div>
+                            {{/each}}
+
+                    </div>
+
+                </div>
+                <input type="text" name="user" value="{{user._id}}" hidden>
+                <div class="col-lg-4 col-md-6">
+                    
+                    <div class="checkout__order">
+                        <h4 class="order__title">Your order</h4>
+                        <div class="checkout__order__products" style="font-weight: 800;">Product <span class="float-right">Total</span>
+                        </div>
+                        <div class="pdt">
+                        <ul class="checkout__total__products">
+                            {{#each products}}
+                            <hr>
+                            <li><img style="width: 45px; height: 55px;"
+                                        onclick="window.location.href='/view-product/{{this.product._id}}'"
+                                        src="/product-images/{{this.product._id}}1.jpg" alt=""> <span
+                                        style="font-size: 14px;">{{this.product.Name}}</span></li>
+                            {{/each}}
+                        </ul>
+                        </div>
+                        <ul class="checkout__total__all">
+                            
+                            <li style="font-weight: 800;">Total MRP <span class="float-right">₹{{total}}</span></li>
+                            <li style="font-weight: 800;">Convenience Fee <span class="float-right">FREE</span></li>
+                            <hr>
+                            <li style="font-weight: 800;">Total Amount <span class="float-right">₹ {{total}}</span></li>
+                        </ul>
+
+                        <p>Select any Payment option and Continue</p>
+                        <div class="checkout__input__checkbox" style="font-weight: 600;">
+                            <label for="payment"><input type="radio" name="payment-method"  id="payment" value="COD"> Cash on Delivery
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="checkout__input__checkbox" style="font-weight: 600;">
+                            <label for="razorpay"><input type="radio" name="payment-method"  value="Razorpay" id="razorpay"> Razorpay
+                               <span class="checkmark"></span>
+                            </label>
+                        </div>
+                       
+                        <button type="submit" class="site-btn">PLACE ORDER</button>
+                    </div>
+                </div>
+                </form>
+
+                
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $("#checkout-form").submit((e) => {
+        e.preventDefault()
+        $.ajax({
+            url: '/checkout',
+            method: 'post',
+            data: $('#checkout-form').serialize(),
+            success: (response) => {
+                alert(response)
+                if (response.codSuccess) {
+                    location.href = "/ordersuccess"
+                } else {
+                    razorpayPayment(response)
+                }
+
+            }
+        })
+    })
+    function razorpayPayment(order) {
+        var options = {
+            "key": "rzp_test_SRAXdAoxDlvrIV", // Enter the Key ID generated from the Dashboard
+            "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            "currency": "INR",
+            "name": "Walk-in Style",
+            "description": "Test Transaction",
+            "image": "https://example.com/your_logo",
+            "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            "handler": function (response) {
+                /*alert(response.razorpay_payment_id);
+                alert(response.razorpay_order_id);
+                alert(response.razorpay_signature)*/
+
+                verifyPayment(response, order)
+            },
+            "prefill": {
+                "name": "Abhitha K Shaji",
+                "email": "abhithakshaji360@gmail.com",
+                "contact": "9999999999"
+            },
+            "notes": {
+                "address": "Razorpay Corporate Office"
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
+        };
+        var rzp1 = new Razorpay(options);
+        rzp1.open();
+    }
+    function verifyPayment(payment, order) {
+        $.ajax({
+            url: '/verify-payment',
+            data: {
+                payment,
+                order
+            },
+            method: 'post',
+            success: (response) => {
+                if (response.status) {
+                    location.href = '/ordersuccess'
+                } else {
+                    alert('Payment failed')
+                }
+            }
+        })
+    }
+    
+</script>

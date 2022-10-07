@@ -1,0 +1,44 @@
+<section style="margin: 150px 250px;">
+   <div class="container mt-5 text-center">
+       <div class="row">
+         <a href="/admin/add-product" class="btn btn-success ml-auto">Add Product</a>
+       </div>
+       <table class="table" id="productsTable" style="margin: 3rem; padding: 5rem;">
+  <thead>
+    <tr>
+      <th scope="">No</th>
+      <th scope="col">Title</th>
+      <th scope="col">Image</th>
+      <th scope="col">Price</th>
+      <th scope="col">Brand</th>
+      <th scope="col">Category</th>
+      <th scope="col">Subcategory</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each products}}
+    <tr>
+      <td class="align-middle">{{@index}}</td>
+      <td class="align-middle">{{this.Name}}</td>
+      <td class="align-middle"><img style="width: 70px;" src="/product-images/{{this._id}}1.jpg" alt=""></td>
+      <td class="align-middle">Rs.{{this.Price}}</td>
+      <td class="align-middle">{{this.Brand}}</td>
+      <td class="align-middle">{{this.mainCategory}}</td>
+      <td class="align-middle">{{this.subCategory}}</td>
+      <td class="align-middle">
+          <span><a href="/admin/edit-product/{{this._id}}"><i class="fa-solid fa-pen-to-square" style="color: blue;"></i></a></span>
+          <span><a href="/admin/delete-product/{{this._id}}"><i class="fa-solid fa-trash" style="color: red;"></i></a></span>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table> 
+   </div>
+</section>
+
+<script>
+$(document).ready( function () {
+    $('#productsTable').DataTable();
+} );;
+</script>

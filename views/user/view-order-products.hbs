@@ -1,0 +1,27 @@
+<section id="featured" class="section-p1">
+    <div class="container text-center mt-5 py-5">
+        <h3>Ordered Products</h3>
+        <hr>
+    </div>
+    <div class="pro-container">
+        {{#each products}}
+      <div class="pro">
+          <img src="/product-images/{{this.product._id}}1.jpg" alt="" onclick="window.location.href='/view-product/{{this.product._id}}'">
+          <div class="des">
+              <span>{{this.product.Brand}}</span>
+              <h5>{{this.product.Name}}</h5>
+              <div class="star">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fa-solid fa-star-half-stroke"></i>
+              </div>
+              <h4>₹ {{this.product.Price}}</h4>
+          </div>
+          <a href=""><i class="far fa-heart wishlist"></i></a>
+          <!-- <a href="#"><i class="fa-solid fa-cart-arrow-down cart"></i></a> -->
+      </div>
+      {{/each}}
+    </div>
+</section>

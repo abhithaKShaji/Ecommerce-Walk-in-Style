@@ -1,0 +1,130 @@
+<style>
+    .modal .modal-body input{
+        outline: none;
+        border-bottom: 1px solid #d4d5d9;
+        font-size: 13px;
+    }
+    .modal-footer button{
+        background-color: #c40a2c;
+        border-color: #c40a2c;
+        color: #fff;
+    }
+    .modal-footer label{
+        font-size: 13px;
+    }
+</style>
+<section class="container" id="profile">
+    <div class="title">
+        <h5>Account</h5>
+        {{#if user}}
+        <p>{{user.Name}}</p>
+        {{/if}}
+    </div>
+    <div class="sidebar mt-5 col-md-3 col-3">
+        <div class="sidebar-menu">
+            <li class="item">
+                <a href="/profile" class="menu-btn">
+                    <i class="fas fa-user-circle"></i><span>My Profile</span>
+                </a>
+            </li>
+            <li class="item">
+                <a href="/myorders" class="menu-btn">
+                    <i class="fa-solid fa-boxes"></i><span>My Orders</span>
+                </a>
+            </li>
+            <li class="item">
+                <a href="/wishlist" class="menu-btn">
+                    <i class="fa-solid fa-heart"></i><span>My Wishlist</span>
+                </a>
+            </li>
+            <li class="item">
+                <a href="/login" class="menu-btn">
+                    <i class="fas fa-power-off"></i><span>Logout</span>
+                </a>
+            </li>
+        </div>
+    </div>
+
+    <div class="col-6 col-md-6 text-center box">
+        <div class="pro-details">
+            <h4>{{user.Name}}</h4>
+            <p>Email: {{user.Email}} <br> Phone: {{user.Number}} <br> <a style="color: #fff;" href="">
+                    <i class="fas fa-lock"></i> Change Password</a></p>
+        </div>
+    </div>
+    <div class="address container">
+        <div class="addr-title">
+            <p><i class="fas fa-home"></i> MY ADDRESSES</p>
+            
+            <button class="add" data-bs-toggle="modal" data-bs-target="#modalForm">
+                <i class="fas fa-plus"></i> Add new address</button>
+
+            <div class="modal fade" id="modalForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">ADD NEW ADDRESS</h5>
+                           <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                        </div>
+                        <div class="modal-body">
+                            <form action="add-address" method="post">
+                                <div class="mb-3">
+                                    <!-- <label class="form-label">Fullname</label> -->
+                                    <input type="text" class="form-control" id="name" name="name"
+                                        placeholder="Name *" />
+                                </div>
+                                <div class="mb-3">
+                                   <!-- <label class="form-label">Phone Number</label> -->
+                                    <input type="text" class="form-control" id="number" name="number"
+                                        placeholder="Mobile *" />
+                                </div>
+                                <div class="mb-3">
+                                   <!-- <label class="form-label">Address</label> -->
+                                    <input type="text" class="form-control" id="street" name="street"
+                                        placeholder="House No, Building, Street, Area *" />
+                                </div>
+                                <div class="mb-3">
+                                    <!-- <label class="form-label">Address</label> -->
+                                    <input type="text" class="form-control" id="town" name="town"
+                                        placeholder="Locality/Town *" />
+                                </div>
+                                <div class="mb-3">
+                                   <!-- <label class="form-label">Address</label> -->
+                                    <input type="text" class="form-control" id="city" name="city"
+                                        placeholder="City/District *" />
+                                </div>
+                                <div class="mb-3">
+                                    <!-- <label class="form-label">Pincode</label> -->
+                                    <input type="text" class="form-control" id="pincode" name="pincode"
+                                        placeholder="Pincode *" />
+                                </div>
+                                <div class="mb-3">
+                                   <!-- <label class="form-label">State</label> -->
+                                    <input type="text" class="form-control" id="state" name="state"
+                                        placeholder="State *" />
+                                </div>
+                                <div class="modal-footer d-block">
+                                    <input type="checkbox" class="form-check-input" id="rememberMe" />
+                                    <label class="form-check-label" for="rememberMe">Make this as my default address</label>
+                                    <button type="submit" class="btn float-right">ADD ADDRESS</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{#each allAddress}}
+        <div class="default">
+            <h5>{{this.address.name}}</h5>
+            <p>{{this.address.street}} {{this.address.town}} <br> {{this.address.city}} {{this.address.pincode}} <br> {{this.address.state}}</p>
+            <h5>+91-{{this.address.number}}</h5>
+            <div class="links">
+                <a href="" class="edit"><i class="fas fa-pen"></i>Edit</a>
+                <a href="" onclick="addressRemove('{{../user._id}}','{{this.address.id}}')" class="remove"><i class="fas fa-trash"></i>Remove</a>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</section>
+
