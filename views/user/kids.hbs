@@ -1,10 +1,26 @@
+<section id="brd" style="margin-top: 70px;">
+  <div class="crumb">
+    <ul class="breadcrumb">
+      <li><a href="/">Home</a></li>
+      <li>Kids</li>
+      <span class="ml-auto">
+        <div class="search-container">
+          <form action="/action_page.php">
+            <input type="text" placeholder="Search.." name="search">
+            <button type="submit"><i class="fa fa-search"></i></button>
+          </form>
+        </div>
+      </span>
+    </ul>
+  </div>
+</section>
 <section id="featured" class="section-p1">
     <div class="container text-center mt-5 py-5">
-        <h3>Kids Collections</h3>
+        <!--<h3>Kids Collections</h3>
         <hr>
-        <p>Here you can check out our new products with fair price on WIS.</p>
+        <p>Here you can check out our new products with fair price on WIS.</p>-->
     </div>
-    <div class="pro-container">
+    <div class="pro-container" style="margin-top: -150px;">
         {{#each kids}}
       <div class="pro">
           <img src="product-images/{{this._id}}1.jpg" alt="" onclick=" window.location.href='/view-product/{{this._id}}'">
