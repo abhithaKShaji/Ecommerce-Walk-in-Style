@@ -251,6 +251,23 @@
     font-weight: 700;
     color: 	 #737373;
   }
+  #dashboard .userlist h2{
+    font-size: 20px;
+    font-weight: 700;
+    color: 	 #737373;
+    margin-left: 126px;
+    margin-top: 2rem;
+  }
+  #dashboard .table{
+    margin-left: 9rem;
+    margin-top: 3rem;
+  }
+  #dashboard .table td:last-child {
+    text-align: center;
+}
+#dashboard .table th:last-child {
+  text-align: center;
+}
  
   /** add-product **/
  #add-pdt{

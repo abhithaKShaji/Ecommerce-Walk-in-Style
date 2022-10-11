@@ -219,6 +219,12 @@ module.exports={
            ]).toArray()
            resolve([Pstatus[0],Sstatus[0],Dstatus[0],Cstatus[0]])
         })
+      },
+      recentUserlist:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let userList = await db.get().collection(collection.USER_COLLECTION).find().sort({_id:-1}).toArray()
+            resolve(userList)
+        })
       }
     
 }

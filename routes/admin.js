@@ -11,10 +11,11 @@ router.get('/',async function(req, res, next) {
   let totalRevenue = await productHelpers.getTotalRevenue()
   let paymentMethods = await productHelpers.paymentMethods()
   let orderStatus = await productHelpers.getTotalStatus()
+  let userList = await productHelpers.recentUserlist()
   if(totalRevenue==undefined){
     totalRevenue=0
   }
-   res.render('admin/dashboard',{admin:true,userCount,orderCount,productCount,totalRevenue,paymentMethods,orderStatus})
+   res.render('admin/dashboard',{admin:true,userCount,orderCount,productCount,totalRevenue,paymentMethods,orderStatus,userList})
    
  });
 

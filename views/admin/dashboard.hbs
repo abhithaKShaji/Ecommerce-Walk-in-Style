@@ -106,5 +106,26 @@ const chart2 = new Chart(ctx2, {
 
             </div>
         </div>
+        <div class="container userlist">
+            <h2>Recent Users</h2>
+            <table class="table table-bordered" style="padding: 5rem; text-align:center;">
+                <thead>
+                    <tr>
+                        <th scope="col">Users</th>
+                        <th scope="col">Mobile</th>
+                        <th scope="col">Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each userList}}
+                    <tr>
+                        <td class="align-middle">{{this.Name}}</td>
+                        <td>{{this.Number}}</td>
+                        <td class="align-middle">{{this.Email}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
     </div>
 </section>
