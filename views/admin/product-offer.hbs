@@ -1,0 +1,53 @@
+<section id="offer" style="margin: 150px 250px;">
+   <div class="container mt-5 text-center">
+    <ul class="breadcrumb">
+     <li><a href="#">Manage Offers</a></li>
+     <li>Product Offers</li>
+    </ul>
+       <div class="product">
+        <form action="/admin/product-offer" method="post" class="mt-3">
+            <select name="Name" id="">
+                <option value="">Product</option>
+                {{#each products}}
+                <option value="{{this.Name}}">{{this.Name}}</option>
+                {{/each}}
+            </select><br><br>
+            <label for="">Start Date</label>
+            <input type="date" name="startDate" id="start" placeholder="Start Date"><br>
+            <label for="">End Date</label>
+            <input type="date" name="endDate" id="end" placeholder="End Date"><br><br>
+            <input type="text" name="percentage" placeholder="Offers in Percentage"><br><br>
+            <button type="submit">Add Product Offer</button>
+        </form>
+       </div>
+   </div>
+</section>
+
+<section >
+   <div class="container text-center">
+       <table class="table" id="productsTable" style="margin-left:3rem; margin-top:-5rem; padding: 5rem;">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Start Date</th>
+      <th scope="col">End Date</th>
+      <th scope="col">Percentage</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each pdtOffer}}
+    <tr>
+      <td class="align-middle">{{this.Name}}</td>
+      <td class="align-middle">{{this.startDate}}</td>
+      <td class="align-middle">{{this.endDate}}</td>
+      <td class="align-middle">{{this.percentage}}</td>
+      <td class="align-middle">
+          <a href="/admin/delete-product/{{this._id}}"><i class="fa-solid fa-trash" style="color: grey;"></i></a>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table> 
+   </div>
+</section>

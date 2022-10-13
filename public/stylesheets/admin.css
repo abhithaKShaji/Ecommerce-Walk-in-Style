@@ -351,3 +351,11 @@ ul.breadcrumb li a:hover {
   color: #01447e;
   text-decoration: underline;
 }
+
+/** product offer **/
+#offer .product{
+  width: 350px;
+  height: 300px;
+  border: 1px solid silver;
+  margin-left: 382px;
+}

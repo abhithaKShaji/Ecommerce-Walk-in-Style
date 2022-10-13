@@ -12,7 +12,7 @@ module.exports={
     },
     getAllProducts:()=>{
         return new Promise(async(resolve,reject)=>{
-            let products=await db.get().collection(collection.PRODUCT_COLLECTION).find().sort({_id:1}).limit(8).toArray()
+            let products=await db.get().collection(collection.PRODUCT_COLLECTION).find().sort({_id:1}).toArray()
             resolve(products)
         })
     },
@@ -224,6 +224,38 @@ module.exports={
         return new Promise(async(resolve,reject)=>{
             let userList = await db.get().collection(collection.USER_COLLECTION).find().sort({_id:-1}).toArray()
             resolve(userList)
+        })
+      },
+
+      productOffer:(details)=>{
+        return new Promise(async(resolve,reject)=>{
+            let product = await db.get().collection(collection.PRODUCT_COLLECTION).findOne({Name:details.Name})
+            details.percentage=parseInt(details.percentage)
+            let actualPrice = product.Price
+            let newPrice = (((product.Price)*(details.percentage))/100)
+            newPrice = newPrice.toFixed()
+            console.log("new:"+newPrice);
+            db.get().collection(collection.OFFER_COLLECTION).insertOne(details).then((response)=>{
+                db.get().collection(collection.PRODUCT_COLLECTION).updateOne({Name:details.Name},
+                    {
+                        $set:{
+                            pdtOffer:true,
+                            percentage:details.percentage,
+                            Price:(actualPrice-newPrice),
+                            actualPrice:actualPrice
+                        }
+                    }
+                    ).then((response)=>{
+                        resolve()
+                    })
+            })
+        })
+      },
+
+      getProductOffer:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let pdtOffer = await db.get().collection(collection.OFFER_COLLECTION).find().toArray()
+            resolve(pdtOffer)
         })
       }
     

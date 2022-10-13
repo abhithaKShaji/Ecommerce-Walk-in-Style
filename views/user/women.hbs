@@ -34,7 +34,11 @@
                   <i class="fas fa-star"></i>
                   <i class="fa-solid fa-star-half-stroke"></i>
               </div>
-              <h4>₹ {{this.Price}}</h4>
+              {{#if this.pdtOffer}}
+                <h4>₹{{this.Price}} <span style="margin-left: 1px;"><del style="color: rgb(153, 153, 153);">₹{{this.actualPrice}}</del><span style="color: red;">({{this.percentage}}% OFF)</span></span></h4>
+              {{else}}
+                <h4>₹{{this.Price}}</h4>
+              {{/if}}
           </div>
           <a href=""><i class="far fa-heart wishlist"></i></a>
           <!-- <a href="#"><i class="fa-solid fa-cart-arrow-down cart"></i></a> -->

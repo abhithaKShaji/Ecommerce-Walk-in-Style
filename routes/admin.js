@@ -113,6 +113,23 @@ router.get('/blocked-users',(req,res)=>{
   })
 })
 
+router.get('/product-offer',async(req,res)=>{
+  let products = await productHelpers.getAllProducts()
+  let pdtOffer = await productHelpers.getProductOffer()
+  console.log("offer:"+pdtOffer);
+  res.render('admin/product-offer',{admin:true,products,pdtOffer})
+})
+
+router.post('/product-offer',(req,res)=>{
+  productHelpers.productOffer(req.body).then(()=>{
+    res.redirect('/admin/product-offer')
+  })
+})
+
+router.get('/coupon-code',(req,res)=>{
+  res.render('admin/coupon-code',{admin:true})
+})
+
 router.get('/allOrders',(req,res)=>{
   productHelpers.getAllOrders().then((allOrders)=>{
     res.render('admin/allOrders',{admin:true,allOrders})
