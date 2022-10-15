@@ -84,7 +84,16 @@
                 </div>
                 <input type="text" name="user" value="{{user._id}}" hidden>
                 <div class="col-lg-4 col-md-6">
-                    
+                    <div id="checkout_coupon" class="coupon-checkout-content">
+                        <div class="coupon-info">
+                            <form action="/applyCoupon" method="post">
+                                <p class="checkout-coupon">
+                                    <input type="text" placeholder="Coupon code" name="code" />
+                                    <button type="submit" value="">Apply Coupon</button>
+                                </p>
+                            </form>
+                        </div>
+                    </div>
                     <div class="checkout__order">
                         <h4 class="order__title">Your order</h4>
                         <div class="checkout__order__products" style="font-weight: 800;">Product <span class="float-right">Total</span>
@@ -104,8 +113,7 @@
                             
                             <li style="font-weight: 800;">Total MRP <span class="float-right">₹{{total}}</span></li><br>
                             <li style="font-weight: 800;">Convenience Fee <span class="float-right" style="color: #03a685;">FREE</span></li><br>
-                            <li style="font-weight: 800;">Coupon Discount <span class="float-right" >
-                                <button class="coupon" style="color: #c40a2c;">Apply Coupon</button></span></li>
+                            <li style="font-weight: 800;">Coupon Discount <span class="float-right" style="color: #c40a2c;">₹ 3543</span></li>
                             <hr>
                             <li style="font-weight: 800;">Total Amount <span class="float-right">₹ {{total}}</span></li>
                         </ul>

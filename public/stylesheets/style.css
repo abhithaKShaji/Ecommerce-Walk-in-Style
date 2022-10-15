@@ -1115,6 +1115,24 @@ th:last-child{
 .checkout .coupon:focus{
     border: none;
 }
+.checkout .checkout-coupon input{
+    border: #1a1a1a;
+    width: 220px;
+}
+.checkout .checkout-coupon button {
+    float: right;
+    padding: 6px 10px;
+    margin-top: -3px;
+    margin-right: 16px;
+    background: #c40a2c;
+    font-size: 12px;
+    
+    cursor: pointer;
+  }
+  .checkout .order__title{
+    color: #8c8d94;
+    font-size: 1.3rem;
+  }
     
 /** media query **/
 

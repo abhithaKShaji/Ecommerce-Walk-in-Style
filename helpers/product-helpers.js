@@ -1,6 +1,7 @@
 var db=require('../config/connection')
 var collection=require('../config/collections');
 var objectId = require('mongodb').ObjectId
+const moment = require('moment');
 module.exports={
 
     addProduct:(product,callback)=>{
@@ -256,6 +257,34 @@ module.exports={
         return new Promise(async(resolve,reject)=>{
             let pdtOffer = await db.get().collection(collection.OFFER_COLLECTION).find().toArray()
             resolve(pdtOffer)
+        })
+      },
+
+      addCoupons:(couponData)=>{
+        
+        couponData.dateCreated = moment().format()
+        let expiryDate = moment().add(couponData.validityDays,'d')
+        couponData.expiryDate = expiryDate.format()
+        couponData.discount = parseInt(couponData.discount)
+        couponData.discountlimit = parseInt(couponData.discountlimit)
+        couponData.usedUser=[]
+        return new Promise(async(resolve,reject)=>{
+            let response = {}
+            let couponExist = await db.get().collection(collection.COUPON_COLLECTION).findOne({couponcode:couponData.couponcode})
+            if(!couponExist){
+                await db.get().collection(collection.COUPON_COLLECTION).insertOne(couponData).then((response)=>{
+                    resolve({status:true})
+                })
+            }else{
+                resolve({status:false})
+            }
+        })
+      },
+
+      getAllCoupons:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let coupons = await db.get().collection(collection.COUPON_COLLECTION).find().toArray()
+            resolve(coupons)
         })
       }
     

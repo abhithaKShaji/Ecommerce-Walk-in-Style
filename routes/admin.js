@@ -126,8 +126,26 @@ router.post('/product-offer',(req,res)=>{
   })
 })
 
-router.get('/coupon-code',(req,res)=>{
-  res.render('admin/coupon-code',{admin:true})
+router.get('/coupon-code',async(req,res)=>{
+  let coupons = await productHelpers.getAllCoupons()
+  if(coupons){
+    res.render('admin/coupon-code',{admin:true,couponExist,coupons})
+  }else{
+    res.render('admin/coupon-code',{admin:true,couponExist,coupons})
+  }
+ 
+})
+let couponExist
+router.post('/coupon-code',(req,res)=>{
+  productHelpers.addCoupons(req.body).then((response)=>{
+    if(response.status){
+      res.redirect('/admin/coupon-code')
+    }else{
+      couponExist=true
+      res.redirect('/admin/coupon-code')
+    }
+    
+  })
 })
 
 router.get('/allOrders',(req,res)=>{

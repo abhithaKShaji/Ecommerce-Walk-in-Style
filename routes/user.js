@@ -233,7 +233,7 @@ router.get('/empty-cart',(req,res)=>{
 })
 
 router.get('/profile',async(req,res)=>{
-  let id = req.session.user._id
+  let id = req.session.user._id;
   let userProfile = await userHelpers.getUserProfile(id)
   userHelpers.getAddresses(id).then((allAddress)=>{
   res.render('user/profile',{user:req.session.user,userProfile,allAddress})

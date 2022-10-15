@@ -356,6 +356,10 @@ ul.breadcrumb li a:hover {
 #offer .product{
   width: 350px;
   height: 300px;
-  border: 1px solid silver;
   margin-left: 382px;
+}
+
+/** coupon code **/
+#coupon .page-title h4{
+  font-size: 1rem;
 }
