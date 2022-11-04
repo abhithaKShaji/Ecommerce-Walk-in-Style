@@ -152,7 +152,16 @@ h6{
     background-color: #3366FF !important;
   }
 /**user-login**/
-#login{
+#log .logo{
+    font-family: 'Courier New',monospace;
+    font-weight: bold;
+    font-size: 2rem;
+    color: black;
+}
+#log .error p{
+    color: tomato;
+}
+/**#login{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -228,7 +237,7 @@ h6{
  font-weight: 700;
  padding: 40px;
  display: flex;
-}
+}**/
 
 /**user-signup**/
 #signup{
@@ -1125,6 +1134,7 @@ th:last-child{
     margin-top: -3px;
     margin-right: 16px;
     background: #c40a2c;
+    border: #c40a2c;
     font-size: 12px;
     
     cursor: pointer;
@@ -1133,6 +1143,16 @@ th:last-child{
     color: #8c8d94;
     font-size: 1.3rem;
   }
+
+  .checkout .btns{
+    font-size: 11px;
+    background: transparent;
+    color: black;
+    border: 1px solid #c40a2c;
+  }
+
+  /** coupon modal**/
+  
     
 /** media query **/
 

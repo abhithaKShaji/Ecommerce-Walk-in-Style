@@ -7,6 +7,7 @@ const Razorpay = require('razorpay');
 const { resolve } = require('path');
 const { reject } = require('bcrypt/promises');
 const moment = require('moment');
+const { response } = require('../app');
 
 var instance = new Razorpay({
   key_id: 'rzp_test_SRAXdAoxDlvrIV',
@@ -24,9 +25,10 @@ module.exports = {
          })
       
      },
-     doLogin:(userData)=>{
+      doLogin:(userData)=>{
          return new Promise(async(resolve,reject)=>{
              let loginStatus=false
+             let userMobile = `+91${userData.Mobile}`
              let response={}
              let user=await db.get().collection(collection.USER_COLLECTION).findOne({Email:userData.Email})
              if(user){
@@ -53,6 +55,35 @@ module.exports = {
             resolve(user)
         })
      },
+     otpMobileVerify:(num)=>{
+        return new Promise(async(resolve,reject)=>{
+            let user = await db.get().collection(collection.USER_COLLECTION).findOne({mob:num})
+            if(user){
+                resolve({status:true,user})
+            }else{
+                resolve({status:false})
+            }
+        })
+     },
+     userOtpLogin:(id)=>{
+        return new Promise(async(resolve,reject)=>{
+            let user = await db.get().collection(collection.USER_COLLECTION).findOne({_id:objectId(id)}).then((user)=>{
+                resolve({status:true,user})
+            })
+        })
+     },
+   /** loginCheck:(userDetails)=>{
+        var emailData = userDetails.Email
+        var passwordData = userDetails.Password
+        return new Promise(async(resolve,reject)=>{
+            let user = await db.get().collection(collection.USER_COLLECTION).findOne({Email:emailData,Password:passwordData})
+            if(user){
+                resolve({status:true.user})
+            }else{
+                resolve({status:false})
+            }
+        })
+     },**/
      addToCart:(proId,userId)=>{
          let proObj = {
              item:objectId(proId),
@@ -214,7 +245,10 @@ module.exports = {
      },
      checkoutItems:(order,products,address,total)=>{
          return new Promise((resolve,reject)=>{
+            console.log("order",order);
+            console.log("pdts:",products);
             console.log("addrs:",address);
+            console.log("tot",total);
              let dateIso = new Date()
              let date = moment(dateIso).format('MMMM Do YYYY')
              let status=order['payment-method']==='COD'?'placed':'pending'
@@ -248,6 +282,7 @@ module.exports = {
              resolve(cart.products)
          })
      },
+
     getUserOrders:(userId)=>{
          return new Promise(async(resolve,reject)=>{
              let orders=await db.get().collection(collection.ORDER_COLLECTION).aggregate([
@@ -294,7 +329,7 @@ module.exports = {
              resolve(orders)
          })
      },
-    /**  getOrderProducts:(orderId)=>{
+      getOrderProducts:(orderId)=>{
         return new Promise(async(resolve,reject)=>{
             console.log("id:",orderId);
             let orderItems =await db.get().collection(collection.ORDER_COLLECTION).aggregate([
@@ -328,7 +363,7 @@ module.exports = {
             console.log(orderItems);
             resolve(orderItems)
         })
-     }, **/
+     }, 
 
      generateRazorpay:(orderId,total)=>{
          return new Promise((resolve,reject)=>{

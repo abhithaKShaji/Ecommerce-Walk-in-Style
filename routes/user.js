@@ -168,6 +168,151 @@ router.get('/logout',(req,res)=>{
   res.redirect('/')
 })
 
+router.get('/loginWotp',(req,res)=>{
+  res.render('user/loginWotp',{"invalidNumber":req.session.invalidNumber})
+  req.session.invalidNumber=false
+})
+router.post('/loginWotp',(req,res)=>{
+  let num=req.body.mob
+  //let number=`+91${num}`
+  console.log("num:"+num);   
+  userHelpers.otpMobileVerify(num).then((response)=>{
+    if(response.status){
+      var user = response.user
+      var mob = response.mob
+      req.session.loginOtpUser = user
+      req.session.loginMobNo = mob
+      client.verify.services(serviceSid).verifications.create({
+        to: `+91${mob}`,
+        channel: "sms"
+      }).then((response)=>{
+        /**req.session.num = response.to**/
+        response.status=true
+        res.redirect('/loginOtpVerify')
+      }).catch((err)=>{
+        console.log(err);
+      })
+    }else{
+      req.session.invalidNumber = true
+      res.redirect('/loginWotp')
+    }
+  })
+
+})
+router.get('/loginOtpVerify',(req,res)=>{
+  res.render('user/loginOtpVerify',{"invalidOtp":req.session.invalidOtp})
+  req.session.invalidOtp=false
+})
+router.post('/loginOtpVerify/:id',(req,res)=>{
+  let id = req. params.id
+  let otp = req.body.otp
+ // let number = req.session.number
+ userHelpers.userOtpLogin(id).then((response)=>{
+  if(response.status){
+    var mob = response.user.mob
+  
+  client.verify.services(serviceSid).verificationChecks.create({
+    to:`+91${mob}`,
+    code:otp
+  }).then(async(data)=>{
+    var user = response.user
+    if(data.status=="approved"){
+        //let user = await userHelpers.getUserDetails(number)
+        req.session.userLoggedIn=user
+        res.redirect('/')
+       // req.session.user=user
+    }else{
+      req.session.invalidOtp=true
+      redirect('/logfinOtpVerify')
+    }
+  }).catch((err)=>{
+    req.session.invalidOtp = true
+    res.redirect('/loginOtpVerify')
+  })
+}
+ })
+  userHelpers.doLogin(id).then((response)=>{
+    if(response.user){
+      var mob = response.user.mob
+      client.verify.services(serviceSid).verificationChecks.create({
+        to:`+91${mob}`,
+        code:otp
+      }).then((data)=>{
+        var user = response.user
+        if(data.status=="approved"){
+          req.session.userLoggedIn=user
+          res.redirect('/')
+        }
+      }).catch((err)=>{
+        req.session.invalidOtp = true
+        res.redirect('/loginOtpVerify')
+      })
+    }
+  })
+})
+/**router.post('/loginOtp',(req,res)=>{
+  var num = req.body.Number
+  userHelpers.otpMobileVerify(num).then((response)=>{
+    if(response.status){
+      var user = response.user
+      var Number = user.Number
+      req.session.loginOtpUser = user 
+      req.session.loginMobNo = Number
+      client.verify.services(process.env.TWILIO_SERVICE_SID).verifications.create({
+        to:`+91${Number}`,
+        channel:'sms'
+      }).then((response)=>{
+        response.status = true
+      })
+      res.render('user/loginWotp',{user})
+    }
+  })
+})
+
+router.post('/login-otpcheck',(req,res)=>{
+  var id = req.params.id
+  var otp = req.params.otp
+  userHelpers.userOtpLogin(id).then((response)=>{
+    if(response.status){
+      var Number = response.user.Number
+      client.verify.services(process.env.TWILIO_SERVICE_SID).verificationChecks.create({
+        to:`+91${Number}`,
+        code:otp
+      }).then((data)=>{
+        var user = response.user
+        if(data.status == 'approved'){
+          req.session.userLoggedIn=user
+          res.redirect('/')
+        }else{
+          var otp = "OTP Failed Try Again"
+          res.render('user/loginWotp',{otp})
+        }
+      }).catch((err)=>{
+        var otp = "OTP Failed Try Again"
+        res.render('user/loginWotp',{otp})
+      })
+    }
+  })
+  userHelpers.loginCheck(id).then((response)=>{
+    if(response.user){
+      var Number = response.user.Number
+      client.verify.services(process.env.TWILIO_SERVICE_SID).verificationChecks.create({
+        to:`+91${Number}`,
+        code:otp
+      }).then((data)=>{
+        var user = response.user
+        if(data.status == 'approved'){
+          req.session.userLoggedIn=user
+          res.redirect('/')
+        }
+      }).catch((err)=>{
+        var otp = "OTP Failed Try Again"
+        res.render('user/otp',{otp})
+      })
+    }
+  })
+})**/
+
 router.get('/wishlist',verifyLogin,async(req,res)=>{
   let products = await userHelpers.getWishlistProducts(req.session.user._id)
   if(products.length>0){
@@ -265,7 +410,7 @@ router.get('/checkout',verifyLogin,async(req,res)=>{
   userHelpers.getAddresses(req.session.user._id).then((allAddress)=>{
     res.render('user/checkout',{products,total,user:req.session.user,allAddress})
   })
-  
+    
 })
 router.post('/checkout',async(req,res)=>{
   let products=await userHelpers.getCartProductList(req.session.user._id)

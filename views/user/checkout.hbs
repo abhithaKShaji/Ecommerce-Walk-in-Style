@@ -9,50 +9,52 @@
                         <form action="add-checkout-address" method="post">
                             <div class="form-row">
                                 <div class="col-md-6">
-                                    <input type="text" name="name"   class="form-control" id="name" placeholder="Full Name">
-                                        <p class="error-msg" id="errormsg4"></p>
+                                    <input type="text" name="name" class="form-control" id="name"
+                                        placeholder="Full Name">
+                                    <p class="error-msg" id="errormsg4"></p>
                                 </div>
-                        
+
                                 <div class="col-md-6">
-                                    <input type="text" name="number"  class="form-control" id="number"
+                                    <input type="text" name="number" class="form-control" id="number"
                                         placeholder="Mobile Number">
-                                        <p class="error-msg" id="errormsg2"></p>
+                                    <p class="error-msg" id="errormsg2"></p>
                                 </div>
 
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control"  id="add1" name="street"
+                                <input type="text" class="form-control" id="add1" name="street"
                                     placeholder="Street Address">
-                                    <p id="errormsg8" class="error-msg"></p>
+                                <p id="errormsg8" class="error-msg"></p>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control"  id="add2" name="town"
+                                <input type="text" class="form-control" id="add2" name="town"
                                     placeholder="Apartment, studio, or floor">
-                                     <p class="error-msg" id="errormsg9"></p>
+                                <p class="error-msg" id="errormsg9"></p>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-6">
-                                    <input type="text" class="form-control"  name="pincode" placeholder="Pincode" id="zip">
+                                    <input type="text" class="form-control" name="pincode" placeholder="Pincode"
+                                        id="zip">
                                     <p class="error-msg" id="errormsg6"></p>
                                 </div>
-                                
+
                             </div>
 
-                            
+
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <input type="text" class="form-control"  name="city" id="city" placeholder="City">
+                                    <input type="text" class="form-control" name="city" id="city" placeholder="City">
                                     <p class="error-msg" id="errormsg5"></p>
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <input type="text" list="state" id="state"  name="state" class="form-control"
+                                    <input type="text" list="state" id="state" name="state" class="form-control"
                                         placeholder="Pick a State" />
-                                        <p class="error-msg" id="errormsg3"></p>
+                                    <p class="error-msg" id="errormsg3"></p>
                                 </div>
 
                             </div>
-                            <button type="submit"  class="btn btn-success btn-md">Submit</button>
+                            <button type="submit" class="btn btn-success btn-md">Submit</button>
                         </form>
                     </div>
 
@@ -60,9 +62,9 @@
                         <form id="checkout-form">
                             {{#each allAddress}}
                             <div class="default d-flex mt-4 pl-2">
-                               <div class="mt-3">
+                                <div class="mt-3">
                                     <input type="radio" name="address" value="{{this.address.id}}">
-                                </div> 
+                                </div>
                                 <div class="m-3">
                                     <b>{{this.address.name}}</b><br>
                                     <div class="mt-3">
@@ -72,9 +74,10 @@
                                     </div>
                                     <h5 class="font-weight-bold">Mobile: +91-{{this.address.number}}</h5>
                                     <div class="links">
-                                <a href=""  class="edit"><i class="fas fa-pen"></i>Edit</a>
-                                <a href="" onclick="addressRemove('{{../user._id}}','{{this.address.id}}')" class="remove"><i class="fas fa-trash"></i>Remove</a>
-                            </div>
+                                        <a href="" class="edit"><i class="fas fa-pen"></i>Edit</a>
+                                        <a href="" onclick="addressRemove('{{../user._id}}','{{this.address.id}}')"
+                                            class="remove"><i class="fas fa-trash"></i>Remove</a>
+                                    </div>
                                 </div>
                             </div>
                             {{/each}}
@@ -84,58 +87,88 @@
                 </div>
                 <input type="text" name="user" value="{{user._id}}" hidden>
                 <div class="col-lg-4 col-md-6">
-                    <div id="checkout_coupon" class="coupon-checkout-content">
+                    <!--<div id="checkout_coupon" class="coupon-checkout-content">
                         <div class="coupon-info">
-                            <form action="/applyCoupon" method="post">
                                 <p class="checkout-coupon">
                                     <input type="text" placeholder="Coupon code" name="code" />
-                                    <button type="submit" value="">Apply Coupon</button>
+                                    <button type="button" class="btn" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal">Apply Coupon</button>
+
+                                <div class="modal fade" id="exampleModal" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Apply Coupon</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                        
+                                            <div class="modal-body">
+                                                <form action="add-coupon" method="post">
+                                                 <div style="background-color: #f3f2ee;" class="p-3">
+                                        <input class="mt-1" type="radio" name="coupon" value="">
+                                        <b class="pl-3"></b>
+                                    </div>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Cancel</button>
+                                                <button type="submit" class="btn btn-success">Apply</button>
+                                            </div>
+                                                </form>
+                                        </div>
+                                    </div>
+                                </div>
                                 </p>
-                            </form>
                         </div>
-                    </div>
+                    </div>-->
                     <div class="checkout__order">
                         <h4 class="order__title">Your order</h4>
-                        <div class="checkout__order__products" style="font-weight: 800;">Product <span class="float-right">Total</span>
+                        <div class="checkout__order__products" style="font-weight: 800;">Product <span
+                                class="float-right">Total</span>
                         </div>
                         <div class="pdt">
-                        <ul class="checkout__total__products">
-                            {{#each products}}
-                            <hr>
-                            <li><img style="width: 45px; height: 55px;"
+                            <ul class="checkout__total__products">
+                                {{#each products}}
+                                <hr>
+                                <li><img style="width: 45px; height: 55px;"
                                         onclick="window.location.href='/view-product/{{this.product._id}}'"
                                         src="/product-images/{{this.product._id}}1.jpg" alt=""> <span
                                         style="font-size: 14px;">{{this.product.Name}}</span></li>
-                            {{/each}}
-                        </ul>
+                                {{/each}}
+                            </ul>
                         </div>
                         <ul class="checkout__total__all">
-                            
+
                             <li style="font-weight: 800;">Total MRP <span class="float-right">₹{{total}}</span></li><br>
-                            <li style="font-weight: 800;">Convenience Fee <span class="float-right" style="color: #03a685;">FREE</span></li><br>
-                            <li style="font-weight: 800;">Coupon Discount <span class="float-right" style="color: #c40a2c;">₹ 3543</span></li>
+                            
+                            <li style="font-weight: 800;">Convenience Fee <span class="float-right"
+                                    style="color: #03a685;">FREE</span></li>
                             <hr>
                             <li style="font-weight: 800;">Total Amount <span class="float-right">₹ {{total}}</span></li>
                         </ul>
 
                         <p>Select any Payment option and Continue</p>
                         <div class="checkout__input__checkbox" style="font-weight: 600;">
-                            <label for="payment"><input type="radio" name="payment-method"  id="payment" value="COD"> Cash on Delivery
+                            <label for="payment"><input type="radio" name="payment-method" id="payment" value="COD">
+                                Cash on Delivery
                                 <span class="checkmark"></span>
                             </label>
                         </div>
                         <div class="checkout__input__checkbox" style="font-weight: 600;">
-                            <label for="razorpay"><input type="radio" name="payment-method"  value="Razorpay" id="razorpay"> Razorpay
-                               <span class="checkmark"></span>
+                            <label for="razorpay"><input type="radio" name="payment-method" value="Razorpay"
+                                    id="razorpay"> Razorpay
+                                <span class="checkmark"></span>
                             </label>
                         </div>
-                       
+
                         <button type="submit" class="site-btn">PLACE ORDER</button>
                     </div>
                 </div>
                 </form>
 
-                
+
             </div>
         </div>
     </div>
@@ -206,5 +239,6 @@
             }
         })
     }
-    
+
 </script>
+

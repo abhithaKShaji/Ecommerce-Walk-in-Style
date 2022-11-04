@@ -1,7 +1,8 @@
 var express = require('express');
 const {render} = require('../app')
 var router = express.Router();
-var productHelpers=require('../helpers/product-helpers')
+var productHelpers=require('../helpers/product-helpers');
+const userHelpers = require('../helpers/user-helpers');
 
 /* GET users listing. */
 router.get('/',async function(req, res, next) {
@@ -126,27 +127,6 @@ router.post('/product-offer',(req,res)=>{
   })
 })
 
-router.get('/coupon-code',async(req,res)=>{
-  let coupons = await productHelpers.getAllCoupons()
-  if(coupons){
-    res.render('admin/coupon-code',{admin:true,couponExist,coupons})
-  }else{
-    res.render('admin/coupon-code',{admin:true,couponExist,coupons})
-  }
- 
-})
-let couponExist
-router.post('/coupon-code',(req,res)=>{
-  productHelpers.addCoupons(req.body).then((response)=>{
-    if(response.status){
-      res.redirect('/admin/coupon-code')
-    }else{
-      couponExist=true
-      res.redirect('/admin/coupon-code')
-    }
-    
-  })
-})
 
 router.get('/allOrders',(req,res)=>{
   productHelpers.getAllOrders().then((allOrders)=>{
