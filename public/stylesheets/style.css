@@ -50,7 +50,10 @@ h6{
     font-family: 'Courier New',monospace;
     font-weight: bold;
     font-size: 2rem;
-    color: black;
+    background: -webkit-linear-gradient(#3e3b92,#c40a2c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /*color: black;*/
 }
 .navbar-light .navbar-nav .nav-link{
     font-size: 17px;
@@ -156,7 +159,9 @@ h6{
     font-family: 'Courier New',monospace;
     font-weight: bold;
     font-size: 2rem;
-    color: black;
+    background: -webkit-linear-gradient(#3e3b92,#c40a2c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 #log .error p{
     color: tomato;
@@ -746,8 +751,9 @@ footer a:hover{
 
 #pdt-details .single-pdt-img{
     width: 40%;
-    margin-right: 50px;  
+    margin-right: 50px; 
 }
+
 .smImg-grp{
     display: flex;
     justify-content: space-between;
@@ -974,7 +980,7 @@ th:last-child{
     font-weight: 700;
  }
  #profile .default{
-    width: 340px;
+    width: 612px;
     min-height: 203px;
     border: 1px solid #e2e9e1;
     margin: 15px 20px 25px 0;

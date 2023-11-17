@@ -14,8 +14,7 @@
 
   /** login **/
   
-  
-  /** sidebar-header **/
+/** sidebar-header **/
   .wrapper .header{
     z-index: 1;
     background: #22242A;
@@ -180,6 +179,25 @@
   .wrapper .sidebar .sidebar-menu .item:target .sub-menu{
     max-height: 500px;
   }
+  .wrapper.collapse .sidebar{
+  width: 70px;
+}
+
+.wrapper.collapse .sidebar .profile img,
+.wrapper.collapse .sidebar .profile p,
+.wrapper.collapse .sidebar a span{
+  display: none;
+}
+
+.wrapper.collapse .sidebar .sidebar-menu .item .menu-btn{
+  font-size: 23px;
+}
+
+.wrapper.collapse .sidebar .sidebar-menu .item .sub-menu i{
+  font-size: 18px;
+  padding-left: 3px;
+}
+
 
   /** dashboard **/
   /** #dashboard{

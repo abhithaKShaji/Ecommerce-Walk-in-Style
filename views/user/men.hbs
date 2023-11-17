@@ -5,8 +5,8 @@
       <li>Men</li>
       <span class="ml-auto">
         <div class="search-container">
-          <form action="/action_page.php">
-            <input type="text" placeholder="Search.." name="search">
+          <form action="">
+            <input type="text" name="search"  placeholder="Search.." id="searchbar" onkeyup="searchProduct()">
             <button type="submit"><i class="fa fa-search"></i></button>
           </form>
         </div>
@@ -27,7 +27,7 @@
       <img src="product-images/{{this._id}}1.jpg" alt="" onclick="window.location.href='/view-product/{{this._id}}'">
       <div class="des">
         <span>{{this.Brand}}</span>
-        <h5>{{this.Name}}</h5>
+        <h5 class="name">{{this.Name}}</h5>
         <div class="star">
           <i class="fas fa-star"></i>
           <i class="fas fa-star"></i>
@@ -50,10 +50,20 @@
 </section>
 
 <script>
-  const btn = document.getElementById('wish')
-
-  btn.addEventListener('click', function onClick() {
-    btn.style.backgroundColor = '#c40a2c';
-    //btn.style.color = 'white';
-  });
+   function searchProduct(){
+    let input = document.getElementById('searchbar').value
+    input = input.toLowerCase()
+    let x = document.getElementsByClassName('name');
+    let d = document.getElementsByClassName('pro')
+    for(i=0; i<x.length; i++){
+      if(!x[i].innerHTML.toLowerCase().includes(input)){
+        x[i].style.display="none";
+        d[i].style.display="none";
+      }
+      else{
+        x[i].style.display="list-item";
+        d[i].style.display="block";
+      }
+    }
+   }
 </script>

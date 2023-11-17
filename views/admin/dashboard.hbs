@@ -54,8 +54,12 @@
                             datasets: [{
                                 data: [{{ paymentMethods }}],
                             backgroundColor: [
-                                'rgb(255, 255, 51)',
-                                'rgb(153, 51, 255)'
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 159, 64, 0.2)',
+                            ],
+                            borderColor: [
+                                'rgb(255, 99, 132)',
+                                'rgb(255, 159, 64)',
                             ],
                             borderWidth: 1
                         }]
@@ -78,19 +82,30 @@
                 <script>
 const ctx2 = document.getElementById('chart2').getContext('2d');
 const chart2 = new Chart(ctx2, {
-    type: 'pie',
+    type: 'bar',
     data: {
         labels: [{{#each orderStatus}}'{{this.status}}',{{/each}}],
         datasets: [{
             label: '# of Votes',
             data: [{{#each orderStatus}}'{{this.total}}',{{/each}}],
             backgroundColor: [
-                '#52d726',
-                '#ffec00',
-                '#ff7300',
-                '#007ed6',
-                '#7cdddd'
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(201, 203, 207, 0.2)'
             ],
+            borderColor: [
+                'rgb(255, 99, 132)',
+                'rgb(255, 159, 64)',
+                'rgb(255, 205, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(54, 162, 235)',
+                'rgb(153, 102, 255)',
+                'rgb(201, 203, 207)'
+    ],
             borderWidth: 1
         }]
     },
@@ -109,7 +124,7 @@ const chart2 = new Chart(ctx2, {
         <div class="container userlist">
             <h2>Recent Users</h2>
             <table class="table table-bordered" style="padding: 5rem; text-align:center;">
-                <thead>
+                <thead style="background-color: cornsilk;">
                     <tr>
                         <th scope="col">Users</th>
                         <th scope="col">Mobile</th>

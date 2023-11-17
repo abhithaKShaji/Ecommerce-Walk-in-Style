@@ -427,6 +427,7 @@ module.exports = {
             resolve(kids)
         })
     },
+     
     getSingleProduct:(proId)=>{
         return new Promise(async(resolve,reject)=>{
             let product = await db.get().collection(collection.PRODUCT_COLLECTION).findOne({_id:objectId(proId)})
