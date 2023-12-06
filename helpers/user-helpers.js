@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 var objectId = require('mongodb').ObjectId
 const Razorpay = require('razorpay');
 const { resolve } = require('path');
-const { reject } = require('bcrypt/promises');
+const { reject } = require('bcryptjs/promises');
 const moment = require('moment');
 const { response } = require('../app');
 
