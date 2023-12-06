@@ -1,11 +1,11 @@
 var db=require('../config/connection')
 var collection=require('../config/collections');
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 
 var objectId = require('mongodb').ObjectId
 const Razorpay = require('razorpay');
 const { resolve } = require('path');
-const { reject } = require('bcryptjs/promises');
+const { reject } = require('bcrypt/promises');
 const moment = require('moment');
 const { response } = require('../app');
 
